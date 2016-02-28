@@ -1,5 +1,6 @@
 require "check_mobi/version"
+require "check_mobi/configuration"
 
 module CheckMobi
-  # Your code goes here...
+  extend Configuration
 end
