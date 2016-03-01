@@ -1,4 +1,4 @@
-require 'faraday'
+require 'net/http'
 
 module CheckMobi
   module Connection
