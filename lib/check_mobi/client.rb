@@ -3,7 +3,6 @@ module CheckMobi
   class Client
 
     attr_accessor *Configuration::VALID_CONFIG_KEYS
-    attr_accessor << :rel_path
 
     def initialize(options={})
       merged_options = CheckMobi.options.merge(options)

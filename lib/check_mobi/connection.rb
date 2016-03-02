@@ -1,16 +1,23 @@
-require 'net/http'
-
 module CheckMobi
   module Connection
+    require 'net/http'
+    require 'json'
+    require 'ostruct'
 
-    def build
-      uri = URI('https://api.checkmobi.com/v1/sms/send')
+    # def self.extended(base)
+    #   base.extend self
+    # end
+
+    def fetch(req)
       http = Net::HTTP.new(uri.host, uri.port)
-      req = Net::HTTP::Post.new(uri.path)
-      req['Content-Type']='application/json'
-      req['Authorization']='key'
-      req.body = '{"to":"+8801911255016", "text":"hi man"}'
-      http.request(req)
+      http.use_ssl = true
+      req['Content-Type']= 'application/json'
+      req['Authorization']= CheckMobi.api_key
+      return http.request(req)
+    end
+
+    def uri
+      URI(CheckMobi.endpoint + rel_path)
     end
   end
 end
