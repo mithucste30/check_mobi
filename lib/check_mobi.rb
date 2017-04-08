@@ -1,9 +1,12 @@
-require "check_mobi/version"
-require "check_mobi/configuration"
-require "check_mobi/client"
-require "check_mobi/connection"
-require "check_mobi/services/sms"
+require_relative 'check_mobi/configuration'
+
+$:.unshift File.expand_path(File.dirname(__FILE__))
 
 module CheckMobi
+  module Resources
+    autoload :CountryList, 'check_mobi/resources/country_list'
+
+  end
+
   extend Configuration
 end
