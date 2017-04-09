@@ -2,6 +2,7 @@ require_relative 'client'
 
 module CheckMobi
   class Resource
+    attr_reader :client
 
     def perform
       before_perform
@@ -24,7 +25,7 @@ module CheckMobi
       }
     end
 
-    def before_perform
+    def before_perform  # overridden by subclasses
 
     end
   end

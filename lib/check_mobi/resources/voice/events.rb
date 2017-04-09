@@ -1,23 +1,10 @@
+require '../../shared/class_with_attributes'
 module CheckMobi
   module Resources
     module Voice
       class Events
-
+        include ClassWithAttributes
         attr_reader :action
-
-        def self.attr_accessor(*vars)
-          @attributes ||= [:action]
-          @attributes.concat vars
-          super(*vars)
-        end
-
-        def self.attributes
-          @attributes
-        end
-
-        def attributes
-          self.class.attributes
-        end
 
         private
 
