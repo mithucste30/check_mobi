@@ -4,6 +4,7 @@ module CheckMobi
   class Resource
 
     def perform
+      before_perform
       @client.perform
     end
 
@@ -21,6 +22,10 @@ module CheckMobi
           http_method: nil,
           form_data: nil
       }
+    end
+
+    def before_perform
+
     end
   end
 end

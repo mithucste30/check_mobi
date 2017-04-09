@@ -6,7 +6,7 @@ module CheckMobi
 
     DEFAULT_ENDPOINT = 'https://api.checkmobi.com/v1'
 
-    DEFAULT_METHOD = :post
+    DEFAULT_METHOD = :get
     DEFAULT_USER_AGENT = "CheckMobi API Ruby Gem".freeze
 
     DEFAULT_API_KEY = nil

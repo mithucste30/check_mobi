@@ -1,0 +1,3 @@
+class RequiredFieldError < StandardError
+
+end
