@@ -3,20 +3,24 @@ module ClassWithAttributes
     base.extend ClassMethods
   end
 
-  def attributes
-    self.class.attributes
-  end
-
   module ClassMethods
 
     def attr_accessor(*vars)
       @attributes ||= [:action]
       @attributes.concat vars
+      send :include, InstanceMethods
       super(*vars)
     end
 
     def attributes
       @attributes
+    end
+  end
+
+  module InstanceMethods
+
+    def attributes
+      self.class.attributes
     end
   end
 end
