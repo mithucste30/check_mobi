@@ -2,15 +2,17 @@ module CheckMobi
   module Configuration
     VALID_CONNECTION_KEYS = [:endpoint, :user_agent, :method].freeze
     VALID_OPTIONS_KEYS = [:api_key, :format].freeze
-    VALID_CONFIG_KEYS     = VALID_CONNECTION_KEYS + VALID_OPTIONS_KEYS
+    VALID_CONFIG_KEYS     = (VALID_CONNECTION_KEYS + VALID_OPTIONS_KEYS).freeze
 
-    DEFAULT_ENDPOINT = 'https://api.checkmobi.com/v1'
+    DEFAULT_ENDPOINT = 'https://api.checkmobi.com/v1'.freeze
 
-    DEFAULT_METHOD = :get
+    DEFAULT_METHOD = :get.freeze
     DEFAULT_USER_AGENT = "CheckMobi API Ruby Gem".freeze
 
-    DEFAULT_API_KEY = nil
-    DEFAULT_FORMAT = :json
+    DEFAULT_API_KEY = nil.freeze
+    DEFAULT_FORMAT = :json.freeze
+    DEFAULT_CONTENT_TYPE = "application/json".freeze
+    DEFAULT_ACCEPT_TYPE = "application/json".freeze
 
     attr_accessor *VALID_CONFIG_KEYS
 
@@ -24,6 +26,8 @@ module CheckMobi
       self.user_agent = DEFAULT_USER_AGENT
       self.api_key = DEFAULT_API_KEY
       self.format = DEFAULT_FORMAT
+      self.content_type = DEFAULT_CONTENT_TYPE
+      self.accept_type = DEFAULT_ACCEPT_TYPE
     end
 
     def configure

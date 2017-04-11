@@ -15,7 +15,7 @@ module CheckMobi
       @request = Net::HTTP.const_get(options.fetch(:http_method, :get)
                                          .to_s.capitalize).new(@endpoint)
       set_headers
-      set_body options
+      set_body options.fetch(:form_data, {})
     end
 
     def perform
@@ -27,13 +27,13 @@ module CheckMobi
     private
 
     def set_headers
-      @request['Content-Type'] = 'application/json'
-      @request['Accept'] = 'application/json'
+      @request['Content-Type'] = CheckMobi.content_type
+      @request['Accept'] = CheckMobi.accept_type
       @request['Authorization'] = CheckMobi.api_key
     end
 
-    def set_body(options)
-      @request.form_data = options[:form_data] if
+    def set_body(form_data)
+      @request.form_data = form_data if
           @request.request_body_permitted?
     end
   end
