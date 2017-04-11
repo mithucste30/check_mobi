@@ -1,6 +1,6 @@
 module CheckMobi
   module Configuration
-    VALID_CONNECTION_KEYS = [:endpoint, :user_agent, :method].freeze
+    VALID_CONNECTION_KEYS = [:endpoint, :user_agent, :method, :content_type, :accept_type].freeze
     VALID_OPTIONS_KEYS = [:api_key, :format].freeze
     VALID_CONFIG_KEYS     = (VALID_CONNECTION_KEYS + VALID_OPTIONS_KEYS).freeze
 
