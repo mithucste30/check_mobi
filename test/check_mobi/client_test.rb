@@ -3,24 +3,43 @@ require 'helper'
 describe CheckMobi::Client do
 	let(:form_data) { {sample_data: 1} }
 
-	describe "On HTTP GET" do
+  describe 'In Common' do
+    before do
+      CheckMobi.configure do |c|
+        c.content_type = 'json'
+        c.accept_type = 'json'
+        c.api_key = '1234567'
+      end
+      
+      @client = CheckMobi::Client.new()
+    end
+
+    it 'should have valid headers' do
+      @client.headers['Content-Type'].must_equal CheckMobi.content_type
+      @client.headers['Accept'].must_equal CheckMobi.accept_type
+      @client.headers['Authorization'].must_equal CheckMobi.api_key
+    end
+  end
+
+	describe 'On HTTP GET' do
 
 		before do
     		@client = CheckMobi::Client.new(http_method: :get)
     		@request = @client.request
-  		end
-
-  		it "should return instance of net/http/get instance" do
-  			@request.must_be_instance_of Net::HTTP::Get
-  		end
-
-  		it "won't accept/return form_data" do
-			@client.send(:set_body, form_data)
-			@request.body.must_equal nil
-		end
     end
 
-    describe "On HTTP POST" do
+  	it 'should return instance of net/http/get instance' do
+  			@request.must_be_instance_of Net::HTTP::Get
+  	end
+
+  	it 'wont accept/return form_data' do
+			  @client.send(:set_body, form_data)
+			  @request.body.must_equal nil
+    end
+
+  end
+
+  describe "On HTTP POST" do
 
 		before do
 			@client = CheckMobi::Client.new(http_method: :post)
@@ -34,6 +53,7 @@ describe CheckMobi::Client do
 		it "should accept/return form_data" do
 			@client.send(:set_body, form_data)
 			@request.body.must_equal URI.encode_www_form(form_data)
-		end
     end
+
+  end
 end

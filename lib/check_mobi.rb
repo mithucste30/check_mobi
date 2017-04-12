@@ -4,7 +4,10 @@ require_relative 'check_mobi/core_ext/string'
 $:.unshift File.expand_path(File.dirname(__FILE__))
 
 module CheckMobi
+
   autoload :Client, 'check_mobi/client'
+  autoload :Response, 'check_mobi/response'
+
   module Resources
     autoload :CountryList, 'check_mobi/resources/country_list'
     autoload :CheckNumber, 'check_mobi/resources/check_number'
