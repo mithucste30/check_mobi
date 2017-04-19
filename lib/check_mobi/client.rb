@@ -1,12 +1,13 @@
 require 'net/http'
 require_relative '../check_mobi'
+require_relative 'response'
 
 module CheckMobi
 
   class Client
     ALLOWED_METHODS = %i[get post].freeze
 
-    attr_reader :endpoint, :request, :headers
+    attr_reader :endpoint, :request, :headers, :response
 
     def initialize(options = {})
       @endpoint = URI(Configuration::DEFAULT_ENDPOINT +
@@ -20,9 +21,12 @@ module CheckMobi
 
     def perform
       @request.initialize_http_header(@headers)
-      res = Net::HTTP.start(@endpoint.hostname, @endpoint.port, use_ssl: true) do |http|
+
+      @response = Net::HTTP.start(@endpoint.hostname, @endpoint.port, use_ssl: true) do |http|
         http.request(@request)
       end
+
+      handle_response
     end
 
     private
@@ -37,6 +41,10 @@ module CheckMobi
     def set_body(form_data)
       @request.form_data = form_data if
           @request.request_body_permitted?
+    end
+
+    def handle_response
+      CheckMobi::Response.new self
     end
   end
 end

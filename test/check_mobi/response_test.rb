@@ -2,7 +2,7 @@ require 'helper'
 
 describe CheckMobi::Response do
   before do
-    @responsehandler = CheckMobi::Response.new
+    @responsehandler = CheckMobi::Response.new ''
   end
 
   it 'should respond to status' do
@@ -11,14 +11,6 @@ describe CheckMobi::Response do
 
   it 'should respond to status=' do
     @responsehandler.must_respond_to :status=
-  end
-
-  it 'should respond to body' do
-    @responsehandler.must_respond_to :body
-  end
-
-  it 'should respond to body=' do
-    @responsehandler.must_respond_to :body=
   end
 
   it 'should respond to is_successful' do
