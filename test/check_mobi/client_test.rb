@@ -1,7 +1,8 @@
 require 'helper'
+require 'json'
 
 describe CheckMobi::Client do
-	let(:form_data) { {sample_data: 1} }
+	let(:form_data) { {'sample_data': 1} }
 
   describe 'In Common' do
     before do
@@ -10,7 +11,7 @@ describe CheckMobi::Client do
         c.accept_type = 'json'
         c.api_key = '1234567'
       end
-      
+
       @client = CheckMobi::Client.new()
     end
 
@@ -52,7 +53,7 @@ describe CheckMobi::Client do
 
 		it "should accept/return form_data" do
 			@client.send(:set_body, form_data)
-			@request.body.must_equal URI.encode_www_form(form_data)
+      JSON.parse(@request.body).symbolize_keys.must_equal form_data
     end
 
   end

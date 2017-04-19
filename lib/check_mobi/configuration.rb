@@ -13,6 +13,7 @@ module CheckMobi
     DEFAULT_FORMAT = :json.freeze
     DEFAULT_CONTENT_TYPE = "application/json".freeze
     DEFAULT_ACCEPT_TYPE = "application/json".freeze
+    DEFAULT_PLATFORM = 'web'
 
     attr_accessor *VALID_CONFIG_KEYS
 

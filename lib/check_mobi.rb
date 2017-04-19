@@ -1,5 +1,6 @@
 require_relative 'check_mobi/configuration'
 require_relative 'check_mobi/core_ext/string'
+require_relative 'check_mobi/core_ext/hash'
 
 $:.unshift File.expand_path(File.dirname(__FILE__))
 

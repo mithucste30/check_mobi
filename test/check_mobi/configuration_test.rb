@@ -1,6 +1,11 @@
 require 'helper'
 
 describe 'configuration' do
+
+    before do
+      CheckMobi.reset
+    end
+
     describe '.api_key' do
       it 'should return default key' do
           CheckMobi.api_key.must_equal CheckMobi::Configuration::DEFAULT_API_KEY

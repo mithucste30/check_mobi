@@ -1,13 +1,20 @@
 require 'net/http'
 require_relative '../check_mobi'
 require_relative 'response'
+require 'json'
+require 'ostruct'
+require 'forwardable'
 
 module CheckMobi
 
   class Client
+
+    extend Forwardable
+
     ALLOWED_METHODS = %i[get post].freeze
 
     attr_reader :endpoint, :request, :headers, :response
+    def_delegators :response, :code
 
     def initialize(options = {})
       @endpoint = URI(Configuration::DEFAULT_ENDPOINT +
@@ -15,7 +22,7 @@ module CheckMobi
 
       @request = Net::HTTP.const_get(options.fetch(:http_method, :get)
                                          .to_s.capitalize).new(@endpoint)
-      set_headers options[:headers]
+      set_headers
       set_body options.fetch(:form_data, {})
     end
 
@@ -29,9 +36,17 @@ module CheckMobi
       handle_response
     end
 
+    def body
+      OpenStruct.new(JSON.parse(response.body))
+    end
+
+    def is_successful
+      code === /^"20\d"$/
+    end
+
     private
 
-    def set_headers headers
+    def set_headers
       @headers = {}
       @headers['Content-Type'] = CheckMobi.content_type
       @headers['Accept'] = CheckMobi.accept_type
@@ -39,8 +54,7 @@ module CheckMobi
     end
 
     def set_body(form_data)
-      @request.form_data = form_data if
-          @request.request_body_permitted?
+      @request.body = form_data.to_json if @request.request_body_permitted?
     end
 
     def handle_response

@@ -1,29 +1,21 @@
 require 'ostruct'
 require 'json'
+require 'forwardable'
+require_relative '../../lib/check_mobi/errors/required_field_error'
+require_relative '../../lib/check_mobi/client'
 
 module CheckMobi
   class Response
 
-    attr_reader :code, :is_successful, :reason, :body
+    extend Forwardable
+
+    def_delegators :@http_client, :code, :is_successful, :body, :response
+
+    alias_method :reason, :body
 
     def initialize(http_client)
-      response = http_client.response
-      body = parse_body(response.body)
-
-      @code = response.code.to_i
-      @is_successful = @code === /^20\d$/
-
-      if @is_successful
-        @body = body
-      else
-        @reason = body
-      end
-    end
-
-    private
-
-    def parse_body(body)
-      OpenStruct.new(JSON.parse(body))
+      raise RequiredFieldError, 'parameter should be a CheckMobi::Client, which is missing' unless http_client.kind_of? CheckMobi::Client
+      @http_client = http_client
     end
   end
 end

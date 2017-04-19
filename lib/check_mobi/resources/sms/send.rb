@@ -6,7 +6,7 @@ module CheckMobi
     module SMS
       class Send < Resource
 
-        def initialize(to: '', text: '', notification_callback: nil, platform: '')
+        def initialize(to: '', text: '', notification_callback: nil, platform: CheckMobi::Configuration::DEFAULT_PLATFORM)
           @form_data = {
               to: to,
               text: text,
