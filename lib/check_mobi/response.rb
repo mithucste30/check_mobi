@@ -9,7 +9,7 @@ module CheckMobi
 
     extend Forwardable
 
-    def_delegators :@http_client, :code, :is_successful, :body, :response
+    def_delegators :@http_client, :status_code, :is_successful, :body, :response, :code
 
     alias_method :reason, :body
 

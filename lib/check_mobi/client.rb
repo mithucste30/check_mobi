@@ -14,7 +14,8 @@ module CheckMobi
     ALLOWED_METHODS = %i[get post].freeze
 
     attr_reader :endpoint, :request, :headers, :response
-    def_delegators :response, :code
+    def_delegator :response, :code, :status_code
+    def_delegators :body, :code
 
     def initialize(options = {})
       @endpoint = URI(Configuration::DEFAULT_ENDPOINT +

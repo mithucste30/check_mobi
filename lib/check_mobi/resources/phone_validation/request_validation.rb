@@ -5,10 +5,10 @@ module CheckMobi
     module PhoneValidation
       class RequestValidation < Resource
 
-        def initialize(number: '', type: '', language: '', notification_callback: '', platform: '')
+        def initialize(number: '', type: '', language: '', notification_callback: nil, platform: CheckMobi::Configuration::DEFAULT_PLATFORM)
           @number = number
           @type = type
-          @langauge = language
+          @language = language
           @notification_callback = notification_callback
           @platform = platform
           super
@@ -23,7 +23,7 @@ module CheckMobi
               form_data: {
                   number: @number,
                   type: @type,
-                  langauge: @langauge,
+                  language: @language,
                   notification_callback: @notification_callback,
                   platform: @platform
               }
