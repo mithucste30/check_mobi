@@ -5,9 +5,7 @@ module CheckMobi
     module PhoneValidation
       class ValidationStatus < Resource
 
-        def initialize(id: '')
-          @id = id
-        end
+        attributes :id
 
         private
 

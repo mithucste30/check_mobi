@@ -5,7 +5,7 @@ module CheckMobi
     module PhoneValidation
       class RequestValidation < Resource
 
-        attributes :number, :type, :language, :notification_callback, :platform
+        attributes :phone_number, :type, :language, :notification_callback, :platform
 
         private
 
@@ -14,7 +14,7 @@ module CheckMobi
               rel_path: '/validation/request',
               http_method: ALLOWED_METHODS[1],
               form_data: {
-                  number: @number,
+                  number: @phone_number,
                   type: @type,
                   language: @language,
                   notification_callback: @notification_callback,

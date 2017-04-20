@@ -5,11 +5,7 @@ module CheckMobi
     module PhoneValidation
       class VerifyPin < Resource
 
-        def initialize(id: '', pin: '', use_server_hangup: false)
-          @id = id
-          @pin = pin
-          @use_server_hangup = use_server_hangup
-        end
+        attributes :id, :pin, :use_server_hangup
 
         private
 
