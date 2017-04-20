@@ -6,10 +6,7 @@ module CheckMobi
     module SMS
       class Details < Resource
 
-        def initialize(id: '')
-          @id = id
-          super
-        end
+        attributes :id
 
         private
 

@@ -5,14 +5,7 @@ module CheckMobi
     module PhoneValidation
       class RequestValidation < Resource
 
-        def initialize(number: '', type: '', language: '', notification_callback: nil, platform: CheckMobi::Configuration::DEFAULT_PLATFORM)
-          @number = number
-          @type = type
-          @language = language
-          @notification_callback = notification_callback
-          @platform = platform
-          super
-        end
+        attributes :number, :type, :language, :notification_callback, :platform
 
         private
 

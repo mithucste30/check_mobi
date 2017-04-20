@@ -1,20 +1,25 @@
 require_relative 'client'
+require_relative '../../lib/check_mobi/shared/class_with_attributes'
 
 module CheckMobi
   class Resource
-    attr_reader :client
+    include ClassWithAttributes
 
     def perform
       before_perform
-      @client.perform
+      client.perform
+    end
+
+    def client
+      Client.new(defaults)
     end
 
     private
 
     ALLOWED_METHODS = Client::ALLOWED_METHODS
 
-    def initialize(*args)
-      @client = Client.new(defaults)
+    def after_initialize
+      @platform ||= CheckMobi::Configuration::DEFAULT_PLATFORM if instance_variable_defined?(:@platform)
     end
 
     def defaults

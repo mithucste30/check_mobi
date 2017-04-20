@@ -5,16 +5,13 @@ module ClassWithAttributes
 
   module ClassMethods
 
-    def attr_accessor(*vars)
-      @attributes ||= [:action]
-      @attributes.concat vars
+    def attributes(*vars)
+      @attributes ||= []
+      @attributes.concat(vars)
       send :include, InstanceMethods
-      super(*vars)
+      attr_accessor *vars
     end
 
-    def attributes
-      @attributes
-    end
   end
 
   module InstanceMethods
@@ -22,5 +19,18 @@ module ClassWithAttributes
     def attributes
       self.class.attributes
     end
+
+    def initialize(*args)
+
+      if self.class.instance_variable_defined?(:@attributes)
+        self.class.instance_variable_get(:@attributes).each do |attr|
+          instance_variable_set("@#{attr}", args[0][attr])
+        end
+      end
+
+      after_initialize
+
+    end
+
   end
 end
