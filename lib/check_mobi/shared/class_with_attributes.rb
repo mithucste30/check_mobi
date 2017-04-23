@@ -7,9 +7,22 @@ module ClassWithAttributes
 
     def attributes(*vars)
       @attributes ||= []
-      @attributes.concat(vars)
-      send :include, InstanceMethods
+
+      vars.uniq.each do |var|
+        @attributes << {name: var, default: nil}
+      end
+
+      send :include, InstanceMethods unless included_modules.include?(InstanceMethods)
       attr_accessor *vars
+    end
+
+    def attribute(name, options={})
+      @attributes ||= []
+
+      @attributes << ({name: name, default: options[:default]})
+
+      send :include, InstanceMethods unless included_modules.include?(InstanceMethods)
+      attr_accessor name
     end
 
   end
@@ -20,16 +33,15 @@ module ClassWithAttributes
       self.class.attributes
     end
 
-    def initialize(*args)
+    def initialize(options = {})
+      attributes = (self.class.instance_variable_get(:@attributes) || []).map{|e| [e[:name], e[:default].dup]}
 
-      if self.class.instance_variable_defined?(:@attributes)
-        self.class.instance_variable_get(:@attributes).each do |attr|
-          instance_variable_set("@#{attr}", args[0][attr])
-        end
+      attributes.each do |name, val|
+          value = options.include?(name) ? options[name] : val
+          instance_variable_set("@#{name}", value)
       end
 
       after_initialize
-
     end
 
   end

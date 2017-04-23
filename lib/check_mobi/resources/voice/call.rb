@@ -6,15 +6,9 @@ module CheckMobi
     module Voice
 
       class Call < Resource
-        include ClassWithAttributes
 
-        attr_accessor :from, :to, :events, :notification_callback, :platform
-
-        def initialize(params)
-          params.each {|k,v| public_send("#{k}=",v)}
-          @events ||= []
-          super
-        end
+        attributes :from, :to, :notification_callback, :platform
+        attribute :events, default: []
 
         private
 
@@ -26,32 +20,30 @@ module CheckMobi
           })
         end
 
-        def before_perform
-          prepare_events
-          @client = Client.new(defaults)
-        end
-
-        def prepare_events
-          uniq_events = @events.uniq { |event| event.action }
-
-          uniq_events.each do |event|
-            hash = {}
-
-            event.attributes.each do |attr|
-              hash[attr] = event.send(attr)
-            end
-
-            @events << hash
-          end
-        end
+        # def before_perform
+        #   uniq_events = @events.uniq { |event| event.action }
+        #
+        #   uniq_events.each do |event|
+        #     hash = {}
+        #
+        #     event.attributes.each do |attr|
+        #       hash[attr] = event.send(attr)
+        #     end
+        #
+        #     @events << hash
+        #   end
+        # end
 
         def form_data
           hash = {}
-          attributes.each do |attr|
+
+          self.class.instance_variable_get(@attributes).each do |attr|
             hash[attr] = send(attr)
           end
+
           return form_data
         end
+
       end
     end
   end

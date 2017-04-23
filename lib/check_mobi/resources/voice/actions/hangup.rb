@@ -7,7 +7,7 @@ module CheckMobi
       module Actions
 
         class Hangup < Events
-          attr_accessor :reason
+          attributes :reason
         end
 
       end

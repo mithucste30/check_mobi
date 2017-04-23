@@ -1,21 +1,16 @@
-require '../../shared/class_with_attributes'
+require_relative '../../shared/class_with_attributes'
+
 module CheckMobi
   module Resources
     module Voice
       class Events
         include ClassWithAttributes
-        attr_reader :action
+        attributes :action
 
         private
 
-        def initialize(params = {})
-          @action = self.class.name.split('::').last.underscore!
-          params.each {|k,v| public_send("#{k}=",v)}
-          after_initialize
-        end
-
         def after_initialize # overridden by subclasses
-
+          @action = self.class.name.split('::').last.underscore!
         end
       end
     end

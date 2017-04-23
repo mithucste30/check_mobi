@@ -6,12 +6,13 @@ module CheckMobi
     module Voice
       module Actions
         class Play < Events
-          attr_accessor :url, :loop
+          attributes :url, :loop
 
           private
 
           def after_initialize
             @loop ||= 1
+            super
           end
         end
       end

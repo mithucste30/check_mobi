@@ -7,12 +7,13 @@ module CheckMobi
       module Actions
 
         class Wait < Events
-          attr_accessor :length
+          attributes :length
 
           private
 
           def after_initialize
             @length ||= 1
+            super
           end
         end
       end

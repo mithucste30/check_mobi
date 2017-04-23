@@ -7,12 +7,13 @@ module CheckMobi
       module Actions
 
         class SendDTMF < Events
-          attr_accessor :digits, :async
+          attributes :digits, :async
 
           private
 
           def after_initialize
             @async = true if @async.nil?
+            super
           end
         end
       end

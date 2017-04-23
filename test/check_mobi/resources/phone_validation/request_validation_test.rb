@@ -48,10 +48,10 @@ describe CheckMobi::Resources::PhoneValidation::RequestValidation do
 
   end
 
-  it 'phone validation request should be successful' do
-    CheckMobi.api_key = ENV['WORKING_API_KEY']
-    @resource.type = 'reverse_cli'
-    response = @resource.perform
-    response.status_code.must_equal '200'
-  end
+  # it 'phone validation request should be successful' do
+  #   CheckMobi.api_key = ENV['WORKING_API_KEY']
+  #   @resource.type = 'reverse_cli'
+  #   response = @resource.perform
+  #   response.status_code.must_equal '200'
+  # end
 end

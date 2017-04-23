@@ -7,12 +7,13 @@ module CheckMobi
       module Actions
 
         class Speak < Events
-          attr_accessor :text, :loop, :voice, :language
+          attributes :text, :loop, :voice, :language
 
           def after_initialize
             @loop ||= 1
             @voice ||= 'WOMAN'
             @language ||= 'en-US'
+            super
           end
         end
       end
