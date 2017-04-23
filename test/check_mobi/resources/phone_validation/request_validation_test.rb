@@ -7,7 +7,7 @@ describe CheckMobi::Resources::PhoneValidation::RequestValidation do
     end
 
     @resource = CheckMobi::Resources::PhoneValidation::RequestValidation.new(
-        phone_number: ENV['PHONE_NUMBER'],
+        number: ENV['PHONE_NUMBER'],
         type: 'cli',
         language: 'en-US'
     )
@@ -22,7 +22,7 @@ describe CheckMobi::Resources::PhoneValidation::RequestValidation do
 
     it 'for no phone number' do
       CheckMobi.api_key = ENV['WORKING_API_KEY']
-      @resource.phone_number = nil
+      @resource.number = nil
       response = @resource.perform
       response.status_code.must_equal '400'
     end
@@ -30,7 +30,7 @@ describe CheckMobi::Resources::PhoneValidation::RequestValidation do
     it 'for invalid phone number' do
       CheckMobi.api_key = ENV['WORKING_API_KEY']
 
-      @resource.phone_number = '000000000000'
+      @resource.number = '000000000000'
 
       response = @resource.perform
       response.status_code.must_equal '400'

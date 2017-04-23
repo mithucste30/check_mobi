@@ -13,11 +13,7 @@ module CheckMobi
           super.merge!({
               rel_path: '/validation/verify',
               http_method: ALLOWED_METHODS[1],
-              form_data: {
-                  id: @id,
-                  pin: @pin,
-                  use_server_hangup: @use_server_hangup
-              }
+              form_data: to_hash
            })
         end
       end

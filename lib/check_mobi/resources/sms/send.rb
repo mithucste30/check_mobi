@@ -14,10 +14,9 @@ module CheckMobi
           super.merge!({
               rel_path: '/sms/send',
               http_method: ALLOWED_METHODS[1],
-              form_data: @form_data
+              form_data: to_hash
           })
         end
-
       end
     end
   end

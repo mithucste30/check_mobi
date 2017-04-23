@@ -30,7 +30,7 @@ module ClassWithAttributes
   module InstanceMethods
 
     def attributes
-      self.class.attributes
+      self.class.instance_variable_get(:@attributes).map{|e| e[:name]}
     end
 
     def initialize(options = {})
@@ -42,6 +42,30 @@ module ClassWithAttributes
       end
 
       after_initialize
+    end
+
+    def to_hash
+      h = {}
+      attributes.each do |attr|
+        value = send(attr)
+        if value.respond_to?(:to_hash)
+          h[attr] = value.to_hash
+        elsif value.is_a? Array
+          values = []
+          value.each do |val|
+            if value.respond_to?(:to_hash)
+              values << val.to_h
+            else
+              values << val
+            end
+          end
+          h[attr] = values
+        else
+          h[attr] = value
+        end
+      end
+
+      return h
     end
 
   end

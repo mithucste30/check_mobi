@@ -16,34 +16,13 @@ module CheckMobi
           super.merge!({
               rel_path: '/call',
               http_method: ALLOWED_METHODS[1],
-              form_data: form_data
+              form_data: to_hash
           })
         end
 
-        # def before_perform
-        #   uniq_events = @events.uniq { |event| event.action }
-        #
-        #   uniq_events.each do |event|
-        #     hash = {}
-        #
-        #     event.attributes.each do |attr|
-        #       hash[attr] = event.send(attr)
-        #     end
-        #
-        #     @events << hash
-        #   end
-        # end
-
-        def form_data
-          hash = {}
-
-          self.class.instance_variable_get(@attributes).each do |attr|
-            hash[attr] = send(attr)
-          end
-
-          return form_data
+        def before_perform
+          self.events = events.uniq { |event| event.action }
         end
-
       end
     end
   end
