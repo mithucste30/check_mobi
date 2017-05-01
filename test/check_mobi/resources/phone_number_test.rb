@@ -1,2 +1,0 @@
-class PhoneNumberTest
-end

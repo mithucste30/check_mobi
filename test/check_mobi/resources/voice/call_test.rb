@@ -8,7 +8,7 @@ describe CheckMobi::Resources::Voice::Call do
       @speak_action = CheckMobi::Resources::Voice::Actions::Speak.new
       @play_action = CheckMobi::Resources::Voice::Actions::Play.new
       @send_dtmf = CheckMobi::Resources::Voice::Actions::SendDTMF.new
-      @wait_action = CheckMobi::Resources::Voice::Actions::SendDTMF.new
+      @wait_action = CheckMobi::Resources::Voice::Actions::Wait.new
       @hangup_action = CheckMobi::Resources::Voice::Actions::Hangup.new
     end
 
@@ -74,19 +74,25 @@ describe CheckMobi::Resources::Voice::Call do
       @resource.attributes.must_be_instance_of Array
       @resource.attributes.must_include :events
     end
+
   end
 
 
   describe 'api interaction test' do
     before do
       CheckMobi.configure do |c|
-        c.api_key = ENV['WORKING_API_KEY']
+        c.api_key = ENV['API_KEY']
       end
 
       @resource = CheckMobi::Resources::Voice::Call.new(
           to: ENV['PHONE_NUMBER']
       )
 
+      @speak_action = CheckMobi::Resources::Voice::Actions::Speak.new
+      @play_action = CheckMobi::Resources::Voice::Actions::Play.new
+      @send_dtmf = CheckMobi::Resources::Voice::Actions::SendDTMF.new
+      @wait_action = CheckMobi::Resources::Voice::Actions::Wait.new
+      @hangup_action = CheckMobi::Resources::Voice::Actions::Hangup.new
     end
 
     it 'should fail without any phone number' do
@@ -95,23 +101,33 @@ describe CheckMobi::Resources::Voice::Call do
       response.status_code.must_equal '400'
     end
 
-    it 'should pass without any events' do
-      response = @resource.perform
-      response.status_code.must_equal '200'
-    end
+    # it 'should pass without any events' do
+    #   response = @resource.perform
+    #   response.status_code.must_equal '200'
+    # end
+    #
+    # it 'should pass with a valid from number' do
+    #   @resource.from = ENV['PHONE_NUMBER']
+    #   response = @resource.perform
+    #   response.status_code.must_equal '200'
+    # end
 
-    it 'should pass with a form number' do
-      @resource.from = ENV['PHONE_NUMBER']
-      response = @resource.perform
-      response.status_code.must_equal '200'
-    end
-
-    focus
     it 'should fail with a invalid form number' do
       @resource.from = '11111111111111'
       response = @resource.perform
       response.status_code.must_equal '400'
       response.code.must_equal 2
+    end
+
+    it 'should pass with valid events' do
+      @speak_action.update_attributes(text: 'You are the best', loop: 2)
+      @play_action.update_attributes(url: ENV['AUDIO_URL'])
+      @send_dtmf.update_attributes(digits: '1W2', async: false)
+      @wait_action.length = 4
+      speak_action2 = CheckMobi::Resources::Voice::Actions::Speak.new(text: 'We are done.')
+      @resource.events << @speak_action << @play_action << @send_dtmf << @wait_action << speak_action2 << @hangup_action
+      response = @resource.perform
+      response.status_code.must_equal '200'
     end
   end
 end

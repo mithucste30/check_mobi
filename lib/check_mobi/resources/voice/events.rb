@@ -5,7 +5,12 @@ module CheckMobi
     module Voice
       class Events
         include ClassWithAttributes
-        attributes :action
+
+        readonly_attributes :action
+
+        def to_hash
+          super.merge({action: action})
+        end
 
         private
 

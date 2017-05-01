@@ -21,14 +21,14 @@ describe CheckMobi::Resources::PhoneValidation::RequestValidation do
     end
 
     it 'for no phone number' do
-      CheckMobi.api_key = ENV['WORKING_API_KEY']
+      CheckMobi.api_key = ENV['API_KEY']
       @resource.number = nil
       response = @resource.perform
       response.status_code.must_equal '400'
     end
 
     it 'for invalid phone number' do
-      CheckMobi.api_key = ENV['WORKING_API_KEY']
+      CheckMobi.api_key = ENV['API_KEY']
 
       @resource.number = '000000000000'
 
@@ -38,7 +38,7 @@ describe CheckMobi::Resources::PhoneValidation::RequestValidation do
 
     it 'for invalid notification_callback url' do
 
-      CheckMobi.api_key = ENV['WORKING_API_KEY']
+      CheckMobi.api_key = ENV['API_KEY']
       @resource.notification_callback = 'ddddddddd'
 
       response = @resource.perform
@@ -49,7 +49,7 @@ describe CheckMobi::Resources::PhoneValidation::RequestValidation do
   end
 
   # it 'phone validation request should be successful' do
-  #   CheckMobi.api_key = ENV['WORKING_API_KEY']
+  #   CheckMobi.api_key = ENV['API_KEY']
   #   @resource.type = 'reverse_cli'
   #   response = @resource.perform
   #   response.status_code.must_equal '200'

@@ -8,6 +8,6 @@ class String
   end
 
   def underscore
-    dup.tap { |s| s.underscore! }
+    dup.underscore!
   end
 end

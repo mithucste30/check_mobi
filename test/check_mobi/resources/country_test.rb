@@ -1,10 +1,14 @@
 require 'helper'
 
 describe CheckMobi::Resources::CountryList do
+  before do
+    @endpoint = 'https://api.checkmobi.com/v1/countries'
+    stub_get_request(@endpoint)
+  end
 
-  it "should fetch country list" do
+  it "should request country list" do
     @resource = CheckMobi::Resources::CountryList.new
-    response = @resource.perform
-    response.status_code.must_equal '200'
+    @resource.perform
+    assert_requested(:get, @endpoint, headers: headers_without_authorization, times: 1)
   end
 end

@@ -16,7 +16,7 @@ describe CheckMobi::Resources::SMS::Details do
     end
 
     it 'for invalid id' do
-      CheckMobi.api_key = ENV['WORKING_API_KEY']
+      CheckMobi.api_key = ENV['API_KEY']
       @client = @resource_class.new(id: nil)
       response = @client.perform
       response.status_code.must_equal '404'
@@ -25,7 +25,7 @@ describe CheckMobi::Resources::SMS::Details do
   end
 
   it 'sms details fetching should be successful' do
-    CheckMobi.api_key = ENV['WORKING_API_KEY']
+    CheckMobi.api_key = ENV['API_KEY']
     @client = @resource_class.new(id: ENV['SMS_ID'])
     response = @client.perform
     response.status_code.must_equal '200'

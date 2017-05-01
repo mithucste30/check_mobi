@@ -20,9 +20,6 @@ module CheckMobi
           })
         end
 
-        def before_perform
-          self.events = events.uniq { |event| event.action }
-        end
       end
     end
   end

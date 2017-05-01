@@ -15,14 +15,14 @@ describe CheckMobi::Resources::SMS::Send do
     end
 
     it 'for invalid sender field' do
-      CheckMobi.api_key = ENV['WORKING_API_KEY']
+      CheckMobi.api_key = ENV['API_KEY']
       @client = CheckMobi::Resources::SMS::Send.new(text: 'hi there!')
       response = @client.perform
       response.status_code.must_equal '400'
     end
 
     it 'for invalid text field' do
-      CheckMobi.api_key = ENV['WORKING_API_KEY']
+      CheckMobi.api_key = ENV['API_KEY']
       @client = CheckMobi::Resources::SMS::Send.new(to: ENV['PHONE_NUMBER'])
       response = @client.perform
       response.status_code.must_equal '400'
@@ -30,7 +30,7 @@ describe CheckMobi::Resources::SMS::Send do
   end
 
   # it 'sms sending should be successful' do
-  #   CheckMobi.api_key = ENV['WORKING_API_KEY']
+  #   CheckMobi.api_key = ENV['API_KEY']
   #   @client = CheckMobi::Resources::SMS::Send.new(to: '+8801911255016', text: 'hi there!')
   #   response = @client.perform
   #   response.status_code.must_equal "200"
