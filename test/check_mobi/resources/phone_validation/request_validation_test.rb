@@ -2,6 +2,8 @@ require 'helper'
 
 describe CheckMobi::Resources::PhoneValidation::RequestValidation do
   before do
+    @endpoint = 'https://api.checkmobi.com/v1/validation/request'
+
     CheckMobi.configure do |c|
       c.api_key = '123456'
     end
@@ -12,24 +14,18 @@ describe CheckMobi::Resources::PhoneValidation::RequestValidation do
         language: 'en-US'
     )
 
+    stub_post_request(@endpoint)
   end
 
-  describe 'phone validation request should fail' do
-    it 'for invalid api_key' do
-      response = @resource.perform
-      response.status_code.must_equal '401'
-    end
+  describe 'phone validation request' do
 
     it 'for no phone number' do
-      CheckMobi.api_key = ENV['API_KEY']
       @resource.number = nil
       response = @resource.perform
       response.status_code.must_equal '400'
     end
 
     it 'for invalid phone number' do
-      CheckMobi.api_key = ENV['API_KEY']
-
       @resource.number = '000000000000'
 
       response = @resource.perform
