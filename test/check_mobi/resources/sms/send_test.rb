@@ -6,16 +6,16 @@ describe CheckMobi::Resources::SMS::Send do
       @endpoint = 'https://api.checkmobi.com/v1/sms/send'
       CheckMobi.api_key = ENV['API_KEY']
       stub_post_request(@endpoint)
+      @text = 'hi there!'
     end
 
     it 'for invalid sender field' do
-      text = 'hi there!'
-      @client = CheckMobi::Resources::SMS::Send.new(text: text)
+      @client = CheckMobi::Resources::SMS::Send.new(text: @text)
       @client.perform
       assert_requested(:post,
                        @endpoint,
                        headers: headers_with_authorization,
-                       body: {text: text,
+                       body: {text: @text,
                               to: nil,
                               notification_callback: nil,
                               platform: 'web'
@@ -39,13 +39,13 @@ describe CheckMobi::Resources::SMS::Send do
     end
 
     it 'sms sending should be successful' do
-      text = 'hi there!'
-      @client = CheckMobi::Resources::SMS::Send.new(to: ENV['PHONE_NUMBER'], text: text)
+
+      @client = CheckMobi::Resources::SMS::Send.new(to: ENV['PHONE_NUMBER'], text: @text)
       @client.perform
       assert_requested(:post,
                        @endpoint,
                        headers: headers_with_authorization,
-                       body: {text: text,
+                       body: {text: @text,
                               to: ENV['PHONE_NUMBER'],
                               notification_callback: nil,
                               platform: 'web'

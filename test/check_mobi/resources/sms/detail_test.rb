@@ -9,7 +9,7 @@ describe CheckMobi::Resources::SMS::Details do
     stub_get_request(@endpoint + ENV['SMS_ID'])
   end
 
-  it 'for invalid id' do
+  it 'with invalid id' do
     client = @resource_class.new(id: nil)
     client.perform
     assert_requested(:get, @endpoint, headers: headers_with_authorization, times: 1)

@@ -1,7 +1,9 @@
 require 'helper'
 
-describe CheckMobi::Resources::Voice::Actions::SendDTMF do
+describe CheckMobi::Resources::Voice::Actions::Speak do
   before do
+    @endpoint = 'https://api.checkmobi.com/v1/call'
+
     CheckMobi.configure do |c|
       c.api_key = ENV['API_KEY']
     end
@@ -40,18 +42,36 @@ describe CheckMobi::Resources::Voice::Actions::SendDTMF do
     hash[:events].first[:action].must_equal @speak_action.class.name.split('::').last.underscore!
   end
 
-  it 'should fail without text' do
+  it 'should request without text' do
+    stub_post_request(@endpoint).to_return(status: 400, body: {code: 10, error: 'Invalid request Payload'}.to_json)
     @resource.events << @speak_action
     response = @resource.perform
     response.status_code.must_equal '400'
     response.code.must_equal 10
+    assert_requested(:post,
+                     @endpoint,
+                     body: @resource.to_hash,
+                     headers: headers_with_authorization,
+                     times: 1)
   end
 
+  focus
   it 'should pass with text' do
+    stub_post_request(@endpoint).to_return(status: 200)
     @speak_action.text = 'sample text'
     @resource.events << @speak_action
     response = @resource.perform
     response.status_code.must_equal '200'
+    assert_requested(:post,
+                     @endpoint,
+                     body: {
+                         from: ENV['PHONE_NUMBER'], to: ENV['PHONE_NUMBER'], notification_callback: nil, platform: 'web',
+                         events:[
+                             {text: 'sample text', loop: 1,voice: 'WOMAN',language: 'en-US',action: 'speak'}
+                         ]
+                     },
+                     headers: headers_with_authorization,
+                     times: 1)
   end
 
 end

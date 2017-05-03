@@ -5,7 +5,8 @@ module CheckMobi
     module PhoneValidation
       class VerifyPin < Resource
 
-        attributes :id, :pin, :use_server_hangup
+        attributes :id, :pin
+        attribute :use_server_hangup, default: false
 
         private
 

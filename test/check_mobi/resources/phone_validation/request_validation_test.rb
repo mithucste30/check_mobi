@@ -5,7 +5,7 @@ describe CheckMobi::Resources::PhoneValidation::RequestValidation do
     @endpoint = 'https://api.checkmobi.com/v1/validation/request'
 
     CheckMobi.configure do |c|
-      c.api_key = '123456'
+      c.api_key = ENV['API_KEY']
     end
 
     @resource = CheckMobi::Resources::PhoneValidation::RequestValidation.new(
@@ -17,37 +17,31 @@ describe CheckMobi::Resources::PhoneValidation::RequestValidation do
     stub_post_request(@endpoint)
   end
 
-  describe 'phone validation request' do
+  describe 'phone validation resource' do
 
-    it 'for no phone number' do
+    it 'should request with no phone number' do
       @resource.number = nil
-      response = @resource.perform
-      response.status_code.must_equal '400'
+      @resource.perform
+      assert_requested(:post,
+                       @endpoint,
+                       headers: headers_with_authorization,
+                       body: { number: nil, type: 'cli', language: 'en-US', notification_callback:nil, platform: "web"},
+                       times: 1)
     end
 
-    it 'for invalid phone number' do
-      @resource.number = '000000000000'
-
-      response = @resource.perform
-      response.status_code.must_equal '400'
-    end
-
-    it 'for invalid notification_callback url' do
-
+    it 'should request with all valid fields' do
       CheckMobi.api_key = ENV['API_KEY']
-      @resource.notification_callback = 'ddddddddd'
-
-      response = @resource.perform
-      response.status_code.must_equal '400'
-      response.code.must_equal 9
+      @resource.type = 'reverse_cli'
+      @resource.perform
+      assert_requested(:post,
+                       @endpoint,
+                       headers: headers_with_authorization,
+                       body: { number: ENV['PHONE_NUMBER'], type: 'reverse_cli', language: 'en-US',
+                               notification_callback:nil, platform: "web"},
+                       times: 1)
     end
 
   end
 
-  # it 'phone validation request should be successful' do
-  #   CheckMobi.api_key = ENV['API_KEY']
-  #   @resource.type = 'reverse_cli'
-  #   response = @resource.perform
-  #   response.status_code.must_equal '200'
-  # end
+
 end
