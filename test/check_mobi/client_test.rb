@@ -15,6 +15,10 @@ describe CheckMobi::Client do
       @client = CheckMobi::Client.new()
     end
 
+    after do
+      CheckMobi.reset
+    end
+
     it 'should have valid headers' do
       @client.headers['Content-Type'].must_equal CheckMobi.content_type
       @client.headers['Accept'].must_equal CheckMobi.accept_type

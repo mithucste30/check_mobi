@@ -3,7 +3,7 @@ require 'helper'
 describe ClassWithAttributes do
 
   describe 'it should set attributes properly' do
-    before do
+
       class Parent
         include ClassWithAttributes
         attributes :a, :b, :c
@@ -29,7 +29,6 @@ describe ClassWithAttributes do
           @l = l
         end
       end
-    end
 
     it 'should set attr_accessors' do
       p = Parent.new
@@ -87,7 +86,6 @@ describe ClassWithAttributes do
   end
 
   describe 'it should build' do
-    before do
       class AnotherParent
         include ClassWithAttributes
         attributes :a, :b, :c, :f
@@ -96,7 +94,7 @@ describe ClassWithAttributes do
         readonly_attribute :i, default: String.new
       end
 
-      class ChildA < AnotherParent
+      class ChildB < AnotherParent
         attribute :j, default: %w(A B C)
       end
 
@@ -112,14 +110,13 @@ describe ClassWithAttributes do
           @l = l
         end
       end
-    end
 
     it 'hash properly' do
-      child_a = ChildA.new
+      child_b = ChildB.new
       another_class_object = AnotherClass.new
       class_without_attributes = ClassWithoutAttributes.new('not gonna converted to hash')
       value_of_f = [another_class_object, another_class_object]
-      p = AnotherParent.new(a: child_a, b: another_class_object, c: class_without_attributes, f: value_of_f)
+      p = AnotherParent.new(a: child_b, b: another_class_object, c: class_without_attributes, f: value_of_f)
       output_hash = p.to_hash
       expected_hash = {
         a: {j: %w(A B C)},

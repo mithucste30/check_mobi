@@ -23,34 +23,4 @@ describe CheckMobi::Resources::Voice::Actions::Wait do
     @wait_action.respond_to?(:action=).must_equal false
   end
 
-  it 'should add speak event correctly' do
-    @resource.events << @wait_action
-    @resource.events.length.must_equal 1
-    @resource.events.first.action.must_equal @wait_action.class.name.split('::').last.underscore!
-  end
-
-  it 'should build hashes correctly' do
-    @resource.events << @wait_action
-    hash = @resource.to_hash
-    hash.keys.must_include(:events)
-    hash[:events].must_be_instance_of Array
-    hash[:events].first.must_be_instance_of Hash
-    hash[:events].first[:action].must_equal @wait_action.class.name.split('::').last.underscore!
-  end
-
-  it 'should fail with invalid length' do
-    @wait_action.length = 0
-    @resource.events << @wait_action
-    response = @resource.perform
-    response.status_code.must_equal '400'
-    response.code.must_equal 10
-  end
-
-  it 'should pass with valid length' do
-    @wait_action.length = 3
-    @resource.events << @wait_action
-    response = @resource.perform
-    response.status_code.must_equal '200'
-  end
-
 end

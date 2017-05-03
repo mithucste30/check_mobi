@@ -55,7 +55,6 @@ describe CheckMobi::Resources::Voice::Actions::Speak do
                      times: 1)
   end
 
-  focus
   it 'should pass with text' do
     stub_post_request(@endpoint).to_return(status: 200)
     @speak_action.text = 'sample text'

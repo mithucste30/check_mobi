@@ -81,7 +81,6 @@ describe CheckMobi::Resources::Voice::Call do
   describe 'api interaction test' do
     before do
       @endpoint = 'https://api.checkmobi.com/v1/call'
-
       CheckMobi.configure do |c|
         c.api_key = ENV['API_KEY']
       end
