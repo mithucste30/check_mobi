@@ -11,7 +11,7 @@ module CheckMobi
 
     extend Forwardable
 
-    ALLOWED_METHODS = %i[get post].freeze
+    ALLOWED_METHODS = %i[get post delete].freeze
 
     attr_reader :endpoint, :request, :headers, :response
     def_delegator :response, :code, :status_code

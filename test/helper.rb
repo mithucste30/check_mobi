@@ -19,6 +19,10 @@ def stub_get_request(url)
   stub_request(:get, url)
 end
 
+def stub_delete_request(url)
+  stub_request(:delete, url)
+end
+
 def stub_post_request(url)
   stub_request(:post, url)
 end

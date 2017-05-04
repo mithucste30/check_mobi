@@ -28,6 +28,8 @@ module CheckMobi
 
     module Voice
       autoload :Call, 'check_mobi/resources/voice/call'
+      autoload :CallDetails, 'check_mobi/resources/voice/call_details'
+      autoload :HangupCall, 'check_mobi/resources/voice/hangup_call'
 
       module Actions
         autoload :Hangup, 'check_mobi/resources/voice/actions/hangup'

@@ -1,4 +1,5 @@
 require 'helper'
+require_relative '../../../lib/check_mobi/shared/class_with_attributes'
 
 describe ClassWithAttributes do
 
