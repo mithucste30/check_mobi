@@ -15,7 +15,7 @@ module CheckMobi
         private
 
         def after_initialize # overridden by subclasses
-          @action = self.class.name.split('::').last.underscore!
+          @action = self.class.name.split('::').last.cm_underscore!
         end
       end
     end

@@ -30,31 +30,31 @@ describe CheckMobi::Resources::Voice::Call do
     it 'should add speak event correctly' do
       @resource.events << @speak_action
       @resource.events.length.must_equal 1
-      @resource.events.first.action.must_equal @speak_action.class.name.split('::').last.underscore!
+      @resource.events.first.action.must_equal @speak_action.class.name.split('::').last.cm_underscore!
     end
 
     it 'should add play event correctly' do
       @resource.events << @play_action
       @resource.events.length.must_equal 1
-      @resource.events.first.action.must_equal @play_action.class.name.split('::').last.underscore!
+      @resource.events.first.action.must_equal @play_action.class.name.split('::').last.cm_underscore!
     end
 
     it 'should add send_dtmf event correctly' do
       @resource.events << @send_dtmf
       @resource.events.length.must_equal 1
-      @resource.events.first.action.must_equal @send_dtmf.class.name.split('::').last.underscore!
+      @resource.events.first.action.must_equal @send_dtmf.class.name.split('::').last.cm_underscore!
     end
 
     it 'should add hangup event correctly' do
       @resource.events << @hangup_action
       @resource.events.length.must_equal 1
-      @resource.events.first.action.must_equal @hangup_action.class.name.split('::').last.underscore!
+      @resource.events.first.action.must_equal @hangup_action.class.name.split('::').last.cm_underscore!
     end
 
     it 'should add wait event correctly' do
       @resource.events << @wait_action
       @resource.events.length.must_equal 1
-      @resource.events.first.action.must_equal @wait_action.class.name.split('::').last.underscore!
+      @resource.events.first.action.must_equal @wait_action.class.name.split('::').last.cm_underscore!
     end
 
     it 'should add multiple events correctly' do
@@ -66,7 +66,7 @@ describe CheckMobi::Resources::Voice::Call do
       @resource.events.length.must_equal 3
       @resource.events.concat [@hangup_action, @wait_action]
       @resource.events.length.must_equal 5
-      @resource.events.each {|event| event.action.must_equal event.class.name.split('::').last.underscore!}
+      @resource.events.each {|event| event.action.must_equal event.class.name.split('::').last.cm_underscore!}
     end
 
     it 'should have attributes' do

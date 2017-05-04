@@ -57,7 +57,7 @@ describe CheckMobi::Client do
 
 		it "should accept/return form_data" do
 			@client.send(:set_body, form_data)
-      JSON.parse(@request.body).symbolize_keys.must_equal form_data
+      JSON.parse(@request.body).cm_symbolize_keys.must_equal form_data
     end
 
   end

@@ -30,7 +30,7 @@ describe CheckMobi::Resources::Voice::Actions::Speak do
   it 'should add speak event correctly' do
     @resource.events << @speak_action
     @resource.events.length.must_equal 1
-    @resource.events.first.action.must_equal @speak_action.class.name.split('::').last.underscore!
+    @resource.events.first.action.must_equal @speak_action.class.name.split('::').last.cm_underscore!
   end
 
   it 'should build hashes correctly' do
@@ -39,7 +39,7 @@ describe CheckMobi::Resources::Voice::Actions::Speak do
     hash.keys.must_include(:events)
     hash[:events].must_be_instance_of Array
     hash[:events].first.must_be_instance_of Hash
-    hash[:events].first[:action].must_equal @speak_action.class.name.split('::').last.underscore!
+    hash[:events].first[:action].must_equal @speak_action.class.name.split('::').last.cm_underscore!
   end
 
   it 'should request without text' do

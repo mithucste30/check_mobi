@@ -1,5 +1,5 @@
 class String
-  def underscore!
+  def cm_underscore!
     self.gsub(/::/, '/').
         gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').
         gsub(/([a-z\d])([A-Z])/,'\1_\2').
@@ -7,7 +7,7 @@ class String
         downcase!
   end
 
-  def underscore
-    dup.underscore!
+  def cm_underscore
+    dup.cm_underscore!
   end
 end
