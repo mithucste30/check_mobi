@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/mithucste30/check_mobi.svg?branch=master)](https://travis-ci.org/mithucste30/check_mobi)
 
+[![Coverage Status](https://coveralls.io/repos/github/mithucste30/check_mobi/badge.svg?branch=master)](https://coveralls.io/github/mithucste30/check_mobi?branch=master)
+
 This gem is ruby wrapper for [CheckMobi](https://checkmobi.com) API.
 
 ## Installation
