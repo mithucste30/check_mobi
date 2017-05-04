@@ -1,6 +1,8 @@
 # CheckMobi
 
-TODO: Write a gem description
+[![Build Status](https://travis-ci.org/mithucste30/check_mobi.svg?branch=master)](https://travis-ci.org/mithucste30/check_mobi)
+
+This gem is ruby wrapper for [CheckMobi](https://checkmobi.com) API.
 
 ## Installation
 
@@ -20,12 +22,16 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+To see how to use the gem, goto the project's [wiki](wiki) page.
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/check_mobi/fork )
+1. Fork it ( https://github.com/mithucste30/check_mobi/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
+
+## License
+
+MIT License. Copyright 2017 [Md. Mazharul Islam](http://mazharul.me)
