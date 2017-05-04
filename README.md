@@ -22,7 +22,7 @@ Or install it yourself as:
 
 ## Usage
 
-To see how to use the gem, goto the project's [wiki](wiki) page.
+To see how to use the gem, goto the project's [wiki](https://github.com/mithucste30/check_mobi/wiki) page.
 
 ## Contributing
 
